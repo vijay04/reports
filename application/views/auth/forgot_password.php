@@ -1,15 +1,44 @@
-<h1><?php echo lang('forgot_password_heading');?></h1>
-<p><?php echo sprintf(lang('forgot_password_subheading'), $identity_label);?></p>
+<!DOCTYPE html>
+<html lang="en">
+<?php $this->load->view('partials/header', array('page_title' => 'Sign in &middot; Twitter Bootstrap')); ?>
 
-<div id="infoMessage"><?php echo $message;?></div>
+<body class="login-page">
 
-<?php echo form_open("auth/forgot_password");?>
+<div class="container">
+	<div class="logo-wrapper">
+		<ul class="logo-items center">
+			<li class="first"><a href="#"><img src="<?php print base_url(); ?>assets/img/logo_sunpharma.png" /></a></li>
+			<li class="last"><a href="#"><img src="<?php print base_url(); ?>assets/img/doctor_info.png" /></a></li>
+		</ul>
+	</div>
 
-      <p>
-      	<label for="email"><?php echo sprintf(lang('forgot_password_email_label'), $identity_label);?></label> <br />
-      	<?php echo form_input($email);?>
-      </p>
+  <?php echo form_open("auth/forgot_password",'class="form form-signin"'); ?>
 
-      <p><?php echo form_submit('submit', lang('forgot_password_submit_btn'));?></p>
 
-<?php echo form_close();?>
+    <div class="row-username">
+      <label>Enter Your registered email address to <b>retrive<br/> your password</b></label>
+      <?php echo form_input($email);?>
+    </div>
+		<div class="row-action">
+			<button class="btn btn-success btn-primary" type="submit" name="submit">Submit</button>
+      <?php print anchor('/', 'back'); ?>
+		</div>
+
+
+    <?php echo form_close();?>
+
+	</div> <!-- /container -->
+
+	<!--[if IE]>
+  <script>Modernizr.load({
+    test: Modernizr.input.placeholder,
+    nope: ['Placeholder.js'],
+    complete: function(){Placeholders.init();}
+  });
+  </script><![endif]-->
+
+  <?php $this->carabiner->display('js'); ?>
+
+
+</body>
+</html>

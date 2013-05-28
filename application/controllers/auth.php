@@ -71,14 +71,14 @@ class Auth extends CI_Controller {
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect('/', 'refresh');
+				redirect('/');
 			}
 			else
 			{
 				//if the login was un-successful
 				//redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+				redirect('auth/login'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else
@@ -732,12 +732,28 @@ class Auth extends CI_Controller {
 
 	function _render_page($view, $data=null, $render=false)
 	{
+    // key is viewname and value is page title
+    $custom_views = array(
+      'auth/index' => '', 'auth/login' => '',
+      'auth/create_group' => 'Create Group', 'auth/edit_group' => 'Edit Group',
+      'auth/create_user' => 'Create User', 'auth/edit_user' => 'Edit User',
+      'auth/deactivate' => 'Deactivate User',
+    );
+    if (array_key_exists($view, $custom_views)) {
+      $viewdata = (empty($data)) ? $this->data: $data;
+      $data['header']['page_title'] = $custom_views[$view]; // title for the page
+      $data['content']['view_name'] = $view; // name of the partial view to load
+      $data['content']['view_data'] = $viewdata; // data coming inside the view
+      $this->load->view('main_page_view', $data);
+    }
+    else {
+      $this->viewdata = (empty($data)) ? $this->data: $data;
 
-		$this->viewdata = (empty($data)) ? $this->data: $data;
+      $view_html = $this->load->view($view, $this->viewdata, $render);
 
-		$view_html = $this->load->view($view, $this->viewdata, $render);
+      if (!$render) return $view_html;
 
-		if (!$render) return $view_html;
+    }
 	}
 
 }
