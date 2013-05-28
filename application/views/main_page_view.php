@@ -16,8 +16,6 @@
     <?php $this->load->view('partials/menu'); ?>
 
     <div class="container" id="content-container">
-
-
       <?php
       if (isset($content['view_name']) && is_array($content['view_data'])) {
         $this->load->view($content['view_name'], $content['view_data']);
