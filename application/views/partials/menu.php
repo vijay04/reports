@@ -11,7 +11,7 @@
         <?php if ($this->ion_auth->logged_in()) : ?>
           <p class="navbar-text pull-right"><a href="<?php print base_url() . 'auth/logout'; ?>">Logout</a></p>
           <ul class="nav">
-            <li><a href="#about">About</a></li>
+            <li><a href="<?php print base_url() . 'sites'; ?>">Sites</a></li>
             <li><a href="#contact">Contact</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
