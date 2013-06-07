@@ -11,7 +11,7 @@
       </thead>
       <tbody>
       <tr ng-repeat="site in sites | filter:search | orderBy:'sitename'">
-        <td>{{site.sitename}}</td>
+        <td><a href="#/view/{{site.id}}">{{site.sitename}}</a></td>
         <td>{{site.email}}</td>
         <td><a href="{{site.path}}" target="_blank">Visit Site</a></td>
         <td>

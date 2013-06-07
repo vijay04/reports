@@ -62,5 +62,28 @@ class Sites extends CI_Controller {
     }
   }
 
+  function view() {
+    $this->load->view('single_site_view');
+  }
+
+  function viewjson() {
+    $this->load->model('sites_model');
+
+    $site_data = $this->sites_model->get($_POST['site_id']);
+    $output =  array(
+      'site_id' => $_POST['site_id'],
+      'path' => $site_data['path'], 
+      'sitename' => $site_data['sitename'], 
+      'email' => $site_data['email'],
+    ); 
+      
+    $this->sites_model->table_name = 'reports';
+    $old_site_data_reports = $this->sites_model->get_by('site_id' , $_POST['site_id'], false, true);
+    $output['total_time'] = $old_site_data_reports['total_time'];
+    $output['connect_time'] = $old_site_data_reports['connect_time']; 
+    $output['created'] = date('d-m-Y h:i:s A', $old_site_data_reports['created']);
+    echo json_encode($output);
+  }
+
 
 }

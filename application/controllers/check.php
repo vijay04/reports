@@ -26,8 +26,11 @@ class Check extends CI_Controller {
       $this->sites_model->table_name = 'reports';
       $this->sites_model->save($params);
 
+      /** TODO **/
+      // ADD delete of old data
+
       $this->sites_model->table_name = 'reports';
-      $this->sites_model->order_by = 'created DESC';
+
       $old_site_data = $this->sites_model->get_by('site_id' , $value['id'], false, true);
 
       if ($old_site_data['total_time']) {

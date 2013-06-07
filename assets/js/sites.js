@@ -14,6 +14,9 @@ sitesApp.config(function($provide, $routeProvider) {
     }).when('/edit/:projectId', {
         templateUrl: base_url + 'sites/add',
         controller: 'editSiteController'
+    }).when('/view/:projectId', {
+        templateUrl: base_url + 'sites/view',
+        controller: 'viewSiteController'
     }).otherwise({
         redirectTo: '/'
     });
@@ -79,6 +82,24 @@ sitesApp.controller('addSiteController', function(sitesFact,$scope, $location) {
       $location.path( base_url + 'sites/listing');
     });
   }
+});
+
+
+sitesApp.controller('viewSiteController', function($scope, $location,$routeParams, $http) {
+  $sid = $routeParams.projectId;
+  
+  $params = $.param({
+    "site_id" : $sid,
+  });
+  $http({
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    url: base_url + 'sites/viewjson',
+    method: "POST",
+    data: $params,
+  })
+  .success(function(siteData) {
+    $scope.sitedata = siteData;
+  });
 });
 
 sitesApp.controller('editSiteController', function(sitesFact,$scope, $location,$routeParams) {
