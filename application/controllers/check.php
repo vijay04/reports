@@ -66,7 +66,7 @@ class Check extends CI_Controller {
     $this->load->library('email');
     $this->email->from('vijay.mayekar@focalworks.in', 'Vijay');
     $this->email->to($value['email']);
-    $this->email->subject('Reporting error ' . $code . ' for site ' . $value['sitename'] . ' @ ' . date('jS F g:i A', time()));
+    $this->email->subject('Reporting error ' . $code . ' for site ' . $value['sitename']);
     $this->email->message('Reporting error ' . $code . ' for site ' . $value['sitename'] . ' @ ' . date('jS F g:i A', time()));
     $this->email->send();
   }
