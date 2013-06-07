@@ -97,6 +97,11 @@ class MY_Model extends CI_Model {
       $this->db->$where_method($key);
     }
 
+    
+    // Set order by if it was not already set
+    count($this->db->ar_orderby) || $this->db->order_by($this->order_by);
+
+
     // Return results
     $single == FALSE || $this->db->limit(1);
     $method = $single ? 'row_array' : 'result_array';
