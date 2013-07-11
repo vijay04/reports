@@ -38,7 +38,7 @@ class Check extends CI_Controller {
         //if 30 % increased then send message
         $increase = ($old_site_data['total_time'] + (0.3 * $old_site_data['total_time']));
   
-        if ($increase =< $info['total_time']) {
+        if ($increase <= $info['total_time']) {
           $this->sendmail('Increase 30% time', $value);
         }
 
