@@ -54,7 +54,7 @@ class Check extends CI_Controller {
           break;
           
 				default:
-          if ($httpCode > 499) {
+          if ($httpCode > 499 && $httpCode != 503) {
             $this->sendmail($httpCode, $value);
           }
 					break;
