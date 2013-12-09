@@ -54,12 +54,17 @@ class Check extends CI_Controller {
           break;
           
 				default:
-          if ($httpCode > 499 && $httpCode != 503) {
+          if ($httpCode > 499 && $httpCode != 503 ) {
             $this->sendmail($httpCode, $value);
           }
 					break;
 			}
 		}
+  }
+
+  function historydelete() {
+    $this->load->model('sites_model');
+    $this->sites_model->deletereports();
   }
   
   private function sendmail($code, $value) {

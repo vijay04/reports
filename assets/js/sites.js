@@ -17,6 +17,9 @@ sitesApp.config(function($provide, $routeProvider) {
     }).when('/view/:projectId', {
         templateUrl: base_url + 'sites/view',
         controller: 'viewSiteController'
+    }).when('/history/:projectId', {
+        templateUrl: base_url + 'sites/history',
+        controller: 'viewSiteHistoryController'
     }).otherwise({
         redirectTo: '/'
     });
@@ -62,7 +65,7 @@ sitesApp.factory('sitesFact', ['$http', '$rootScope', function($http, $rootScope
 
 sitesApp.controller('sitesController', function(sitesFact,$scope, $location) {
  
- //get sites lists
+  //get sites lists
   $sid = '';
   sitesFact.getSitesDetails($sid).then(function(sites) {
     $scope.sites = sites;
@@ -100,6 +103,25 @@ sitesApp.controller('viewSiteController', function($scope, $location,$routeParam
   .success(function(siteData) {
     $scope.sitedata = siteData;
   });
+});
+
+sitesApp.controller('viewSiteHistoryController', function($scope, $location,$routeParams, $http) {
+  $sid = $routeParams.projectId;
+  console.log($sid);
+  
+  $params = $.param({
+    "site_id" : $sid,
+  });
+  $http({
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    url: base_url + 'sites/historyjson',
+    method: "POST",
+    data: $params,
+  })
+  .success(function(reportData) {
+    $scope.sitereportdata = reportData;
+  });
+
 });
 
 sitesApp.controller('editSiteController', function(sitesFact,$scope, $location,$routeParams) {

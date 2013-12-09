@@ -66,6 +66,10 @@ class Sites extends CI_Controller {
     $this->load->view('single_site_view');
   }
 
+  function history() {
+    $this->load->view('single_site_history_view');
+  }
+
   function viewjson() {
     $this->load->model('sites_model');
 
@@ -85,5 +89,15 @@ class Sites extends CI_Controller {
     echo json_encode($output);
   }
 
+  function historyjson() {
+    $this->load->model('sites_model');
+    $this->sites_model->table_name = 'reports';
 
+    $site_data = $this->sites_model->get_by(array('site_id' => $_POST['site_id']));
+   
+    $this->sites_model->table_name = 'reports';
+    $old_site_data_reports = $this->sites_model->get_by('site_id' , $_POST['site_id']);
+    echo json_encode($old_site_data_reports);
+    
+  }
 }

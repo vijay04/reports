@@ -24,5 +24,6 @@
 		<a href="{{sitedata.path}}" target="_blank">Visit Site</a>
 	</div>
 	<br />
-<a href="#/" class="btn">Go Back</a>
+	<a href="#/history/{{sitedata.site_id}}" class="btn">Last Month History</a>
+	<a href="#/" class="btn">Go Back</a>
 </div>
